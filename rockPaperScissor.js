@@ -82,6 +82,8 @@ function newGame() {
     computerScore = 0;
     p1.style.display = 'none';
     btn_newGame.style.display = 'none';
+    p_roundResult.style.visibility = 'hidden';
+    p_score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
 }
 let playerScore = 0;
 let computerScore = 0;
@@ -103,18 +105,22 @@ btn_newGame.addEventListener('click', () => newGame());
 
 
 newGame();
-let buttons = document.querySelectorAll('button');
+let buttons = document.querySelectorAll('.btn');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        p_roundResult.textContent = playRound(button.id);
-        p_score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
-        p_roundResult.style.visibility = 'visible';
-        sumRound++;
-        if (sumRound === 5) {
-            p1.textContent = whoWin();
-            p1.style.display = 'block';
-            btn_newGame.setAttribute('style', 'display: inline-block; width:200px; background-image: linear-gradient(-180deg, #e23737 0%, #c81e1e 100%);');
-
+        if (sumRound <= 5) {
+            p_roundResult.textContent = playRound(button.id);
+            p_score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
+            p_roundResult.style.visibility = 'visible';
+            sumRound++;
+            if (sumRound === 5) {
+                p1.textContent = whoWin();
+                p1.style.display = 'block';
+                btn_newGame.setAttribute('style', 'display: inline-block; width:200px; background-image: linear-gradient(-180deg, #e23737 0%, #c81e1e 100%);');
+            }
+        }
+        else {
+            p_score.textContent='Press New Game button!';
         }
     });
 });
